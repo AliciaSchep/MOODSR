@@ -32,7 +32,8 @@ match_pwms(pwms, subject, ...)
 \S4method{match_pwms}{PWMatrixList,DNAString}(pwms, subject, bg = NULL,
   out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrixList,GenomicRanges}(pwms, subject, genome,
+\S4method{match_pwms}{PWMatrixList,GenomicRanges}(pwms, subject,
+  genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19,
   bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
@@ -45,7 +46,8 @@ match_pwms(pwms, subject, ...)
 \S4method{match_pwms}{PFMatrixList,DNAString}(pwms, subject, bg = NULL,
   out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrixList,GenomicRanges}(pwms, subject, genome,
+\S4method{match_pwms}{PFMatrixList,GenomicRanges}(pwms, subject,
+  genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19,
   bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
@@ -58,7 +60,8 @@ match_pwms(pwms, subject, ...)
 \S4method{match_pwms}{PWMatrix,DNAString}(pwms, subject, bg = NULL,
   out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrix,GenomicRanges}(pwms, subject, genome,
+\S4method{match_pwms}{PWMatrix,GenomicRanges}(pwms, subject,
+  genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19,
   bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
@@ -71,7 +74,8 @@ match_pwms(pwms, subject, ...)
 \S4method{match_pwms}{PFMatrix,DNAString}(pwms, subject, bg = NULL,
   out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrix,GenomicRanges}(pwms, subject, genome,
+\S4method{match_pwms}{PFMatrix,GenomicRanges}(pwms, subject,
+  genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19,
   bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 }
