@@ -99,7 +99,7 @@ setMethod("match_pwms", signature(pwms = "PWMatrixList", subject = "DNAString"),
 #' @describeIn match_pwms
 #' @export
 setMethod("match_pwms", signature(pwms = "PWMatrixList", subject = "GenomicRanges"),
-          function(pwms, subject, genome,  bg = NULL, out = c("match","scores","positions"),p.cutoff = 0.00005, w = 7){
+          function(pwms, subject, genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19,  bg = NULL, out = c("match","scores","positions"),p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
             GenomicRanges::strand(subject) <- "+"
@@ -216,7 +216,7 @@ setMethod("match_pwms", signature(pwms = "PFMatrixList", subject = "DNAString"),
 #' @describeIn match_pwms
 #' @export
 setMethod("match_pwms", signature(pwms = "PFMatrixList", subject = "GenomicRanges"),
-          function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
+          function(pwms, subject, genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
             GenomicRanges::strand(subject) = "+"
@@ -326,7 +326,7 @@ setMethod("match_pwms", signature(pwms = "PWMatrix", subject = "DNAString"),
 #' @describeIn match_pwms
 #' @export
 setMethod("match_pwms", signature(pwms = "PWMatrix", subject = "GenomicRanges"),
-          function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
+          function(pwms, subject, genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
             GenomicRanges::strand(subject) <- "+"
@@ -431,7 +431,7 @@ setMethod("match_pwms", signature(pwms = "PFMatrix", subject = "DNAString"),
 #' @describeIn match_pwms
 #' @export
 setMethod("match_pwms", signature(pwms = "PFMatrix", subject = "GenomicRanges"),
-          function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
+          function(pwms, subject, genome = BSgenome.Hsapiens.UCSC.hg19::BSgenome.Hsapiens.UCSC.hg19, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
             GenomicRanges::strand(subject) = "+"
