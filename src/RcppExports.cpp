@@ -36,3 +36,18 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// get_motif_positions
+List get_motif_positions(List& mats, const std::vector<std::string> x, const std::vector<double> nuc_freqs, const double p, const size_t w);
+RcppExport SEXP MOODSR_get_motif_positions(SEXP matsSEXP, SEXP xSEXP, SEXP nuc_freqsSEXP, SEXP pSEXP, SEXP wSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List& >::type mats(matsSEXP);
+    Rcpp::traits::input_parameter< const std::vector<std::string> >::type x(xSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double> >::type nuc_freqs(nuc_freqsSEXP);
+    Rcpp::traits::input_parameter< const double >::type p(pSEXP);
+    Rcpp::traits::input_parameter< const size_t >::type w(wSEXP);
+    __result = Rcpp::wrap(get_motif_positions(mats, x, nuc_freqs, p, w));
+    return __result;
+END_RCPP
+}

@@ -9,3 +9,7 @@ get_max_motif_score <- function(mats, x, nuc_freqs, p, w) {
     .Call('MOODSR_get_max_motif_score', PACKAGE = 'MOODSR', mats, x, nuc_freqs, p, w)
 }
 
+get_motif_positions <- function(mats, x, nuc_freqs, p, w) {
+    .Call('MOODSR_get_motif_positions', PACKAGE = 'MOODSR', mats, x, nuc_freqs, p, w)
+}
+

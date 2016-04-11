@@ -2,6 +2,18 @@
 #' match_pwms
 #'
 #' Find pwm matches
+#' @param pwms either \code{\link[TFBSTools]{PFMatrix}}, \code{\link[TFBSTools]{PFMatrixList}},
+#' \code{\link[TFBSTools]{PWMatrix}}, \code{\link[TFBSTools]{PWMatrixList}}
+#' @param subject either \code{\link[GenomicRanges]{GenomicRanges}}, \code{\link[Biostrings]{DNAStringSet}},
+#' \code{\link[Biostrings]{DNAString}}, or character vector
+#' @param genome BSgenome object, only used if subect is \code{\link[GenomicRanges]{GenomicRanges}}
+#' @param bg background nucleotide frequencies. if not provided, computed from subject
+#' @param out what to return? see details
+#' @param p.cutoff p-value cutoff for returning motifs
+#' @param w parameter controlling size of window for filtration; default is 7
+#' @details Can either return a sparse matrix with values set to 1 for a match (if return == "match"), a sparse matrix
+#' with values set to the max motif score in each sequence (but zero for sequences with no score above minimum p value threshold),
+#' or \code{\link[GenomicRanges]{GenomicRanges}} if positions
 #' @import Biostrings
 #' @import TFBSTools
 #' @import Matrix
@@ -90,6 +102,7 @@ setMethod("match_pwms", signature(pwms = "PWMatrixList", subject = "GenomicRange
           function(pwms, subject, genome,  bg = NULL, out = c("match","scores","positions"),p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
+            GenomicRanges::strand(subject) <- "+"
             seqs <- getSeq(genome, subject)
             if (is.null(bg)){
               bg <- get_nuc_freqs(seqs)
@@ -106,7 +119,15 @@ setMethod("match_pwms", signature(pwms = "PWMatrixList", subject = "GenomicRange
               out <- get_max_motif_score(motif_mats,seqs,bg,p.cutoff,w)
               colnames(out) <- names(pwms)
             } else{
-              stop("positions not yet implemented")
+              tmp_out <- get_motif_positions(motif_mats,seqs,bg,p.cutoff,w)
+              out <- lapply(1:length(motif_mats), function(x){
+                m_ix <- which(tmp_out$motif_ix == x - 1)
+                GenomicRanges::GRanges(GenomicRanges::seqnames(subject)[tmp_out$seq_ix[m_ix] + 1],
+                                              IRanges::IRanges(start = GenomicRanges::start(subject[tmp_out$seq_ix[m_ix] + 1]) + tmp_out$pos[m_ix],
+                                                               width = ncol(motif_mats[[x]])),
+                                                  strand = tmp_out$strand[m_ix], score = tmp_out$score[m_ix])
+              })
+              names(out) <- names(pwms)
             }
             return(out)
           })
@@ -198,6 +219,7 @@ setMethod("match_pwms", signature(pwms = "PFMatrixList", subject = "GenomicRange
           function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
+            GenomicRanges::strand(subject) = "+"
             seqs <- getSeq(genome, subject)
             if (is.null(bg)){
               bg <- get_nuc_freqs(seqs)
@@ -214,7 +236,16 @@ setMethod("match_pwms", signature(pwms = "PFMatrixList", subject = "GenomicRange
               out <- get_max_motif_score(motif_mats,seqs,bg,p.cutoff,w)
               colnames(out) <- names(pwms)
             } else{
-              stop("positions not yet implemented")
+              tmp_out <- get_motif_positions(motif_mats,seqs,bg,p.cutoff,w)
+              out <- lapply(1:length(motif_mats), function(x){
+                m_ix <- which(tmp_out$motif_ix == x - 1)
+                GenomicRanges::GRanges(GenomicRanges::seqnames(subject)[tmp_out$seq_ix[m_ix] + 1],
+                                                IRanges::IRanges(start = GenomicRanges::start(subject[tmp_out$seq_ix[m_ix] + 1]) + tmp_out$pos[m_ix],
+                                                                 width = ncol(motif_mats[[x]])),
+                                                strand = tmp_out$strand[m_ix], score = tmp_out$score[m_ix])
+
+              })
+              names(out) <- names(pwms)
             }
             return(out)
           })
@@ -298,6 +329,7 @@ setMethod("match_pwms", signature(pwms = "PWMatrix", subject = "GenomicRanges"),
           function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
+            GenomicRanges::strand(subject) <- "+"
             seqs <- getSeq(genome, subject)
             if (is.null(bg)){
               bg <- get_nuc_freqs(seqs)
@@ -312,7 +344,13 @@ setMethod("match_pwms", signature(pwms = "PWMatrix", subject = "GenomicRanges"),
             } else if (out == "scores"){
               out <- get_max_motif_score(motif_mats,seqs,bg,p.cutoff,w)
             } else{
-              stop("positions not yet implemented")
+              tmp_out <- get_motif_positions(motif_mats,seqs,bg,p.cutoff,w)
+              m_ix <- which(tmp_out$motif_ix == x - 1)
+              out <- GenomicRanges::GRanges(GenomicRanges::seqnames(subject)[tmp_out$seq_ix[m_ix] + 1],
+                                              IRanges::IRanges(start = GenomicRanges::start(subject[tmp_out$seq_ix[m_ix] + 1]) + tmp_out$pos[m_ix],
+                                                               width = ncol(motif_mats[[x]])),
+                                              strand = tmp_out$strand[m_ix], score = tmp_out$score[m_ix])
+
             }
             return(out)
           })
@@ -396,6 +434,7 @@ setMethod("match_pwms", signature(pwms = "PFMatrix", subject = "GenomicRanges"),
           function(pwms, subject, genome, bg = NULL, out = c("match","scores","positions"), p.cutoff = 0.00005, w = 7){
 
             out = match.arg(out)
+            GenomicRanges::strand(subject) = "+"
             seqs <- getSeq(genome, subject)
             if (is.null(bg)){
               bg <- get_nuc_freqs(seqs)
@@ -410,7 +449,12 @@ setMethod("match_pwms", signature(pwms = "PFMatrix", subject = "GenomicRanges"),
             } else if (out == "scores"){
               out <- get_max_motif_score(motif_mats,seqs,bg,p.cutoff,w)
             } else{
-              stop("positions not yet implemented")
+              tmp_out <- get_motif_positions(motif_mats,seqs,bg,p.cutoff,w)
+              m_ix <- which(tmp_out$motif_ix == x - 1)
+              out <- GenomicRanges::GRanges(GenomicRanges::seqnames(subject)[tmp_out$seq_ix[m_ix] + 1],
+                                              IRanges::IRanges(start = GenomicRanges::start(subject[tmp_out$seq_ix[m_ix] + 1]) + tmp_out$pos[m_ix],
+                                                               width = ncol(motif_mats[[x]])),
+                                              strand = tmp_out$strand[m_ix], score = tmp_out$score[m_ix])
             }
             return(out)
           })

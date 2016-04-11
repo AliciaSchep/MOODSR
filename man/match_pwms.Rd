@@ -75,8 +75,30 @@ match_pwms(pwms, subject, ...)
   bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 }
+\arguments{
+\item{pwms}{either \code{\link[TFBSTools]{PFMatrix}}, \code{\link[TFBSTools]{PFMatrixList}},
+\code{\link[TFBSTools]{PWMatrix}}, \code{\link[TFBSTools]{PWMatrixList}}}
+
+\item{subject}{either \code{\link[GenomicRanges]{GenomicRanges}}, \code{\link[Biostrings]{DNAStringSet}},
+\code{\link[Biostrings]{DNAString}}, or character vector}
+
+\item{bg}{background nucleotide frequencies. if not provided, computed from subject}
+
+\item{out}{what to return? see details}
+
+\item{p.cutoff}{p-value cutoff for returning motifs}
+
+\item{w}{parameter controlling size of window for filtration; default is 7}
+
+\item{genome}{BSgenome object, only used if subect is \code{\link[GenomicRanges]{GenomicRanges}}}
+}
 \description{
 Find pwm matches
+}
+\details{
+Can either return a sparse matrix with values set to 1 for a match (if return == "match"), a sparse matrix
+with values set to the max motif score in each sequence (but zero for sequences with no score above minimum p value threshold),
+or \code{\link[GenomicRanges]{GenomicRanges}} if positions
 }
 \section{Methods (by class)}{
 \itemize{
