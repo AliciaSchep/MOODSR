@@ -4,6 +4,7 @@
 \name{match_pwms}
 \alias{match_pwms}
 \alias{match_pwms,PFMatrix,DNAString-method}
+\alias{match_pwms,PFMatrix,DNAStringSet-method}
 \alias{match_pwms,PFMatrix,GenomicRanges-method}
 \alias{match_pwms,PFMatrix,character-method}
 \alias{match_pwms,PFMatrixList,DNAString-method}
@@ -22,56 +23,56 @@
 \usage{
 match_pwms(pwms, subject, ...)
 
-\S4method{match_pwms}{PWMatrixList,DNAStringSet}(pwms, subject,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"))
+\S4method{match_pwms}{PWMatrixList,DNAStringSet}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrixList,character}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PWMatrixList,character}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrixList,DNAString}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PWMatrixList,DNAString}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
 \S4method{match_pwms}{PWMatrixList,GenomicRanges}(pwms, subject, genome,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"),
+  bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
-\S4method{match_pwms}{PFMatrixList,DNAStringSet}(pwms, subject,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"))
+\S4method{match_pwms}{PFMatrixList,DNAStringSet}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrixList,character}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PFMatrixList,character}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrixList,DNAString}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PFMatrixList,DNAString}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
 \S4method{match_pwms}{PFMatrixList,GenomicRanges}(pwms, subject, genome,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"),
+  bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
-\S4method{match_pwms}{PWMatrix,DNAStringSet}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"))
+\S4method{match_pwms}{PWMatrix,DNAStringSet}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrix,character}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PWMatrix,character}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PWMatrix,DNAString}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PWMatrix,DNAString}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
 \S4method{match_pwms}{PWMatrix,GenomicRanges}(pwms, subject, genome,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"),
+  bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 
-\S4method{match_pwms}{PWMatrix,DNAStringSet}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"))
+\S4method{match_pwms}{PFMatrix,DNAStringSet}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrix,character}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PFMatrix,character}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
-\S4method{match_pwms}{PFMatrix,DNAString}(pwms, subject, p.cutoff = 5e-05,
-  bg = NULL, out = c("match", "scores", "positions"), w = 7)
+\S4method{match_pwms}{PFMatrix,DNAString}(pwms, subject, bg = NULL,
+  out = c("match", "scores", "positions"), p.cutoff = 5e-05, w = 7)
 
 \S4method{match_pwms}{PFMatrix,GenomicRanges}(pwms, subject, genome,
-  p.cutoff = 5e-05, bg = NULL, out = c("match", "scores", "positions"),
+  bg = NULL, out = c("match", "scores", "positions"), p.cutoff = 5e-05,
   w = 7)
 }
 \description{
@@ -103,7 +104,7 @@ Find pwm matches
 
 \item \code{pwms = PWMatrix,subject = GenomicRanges}: 
 
-\item \code{pwms = PWMatrix,subject = DNAStringSet}: 
+\item \code{pwms = PFMatrix,subject = DNAStringSet}: 
 
 \item \code{pwms = PFMatrix,subject = character}: 
 
