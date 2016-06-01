@@ -6,6 +6,19 @@
 
 using namespace Rcpp;
 
+// get_thresholds
+std::vector<double> get_thresholds(List mats, const std::vector<double> nuc_freqs, const double p);
+RcppExport SEXP MOODSR_get_thresholds(SEXP matsSEXP, SEXP nuc_freqsSEXP, SEXP pSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< List >::type mats(matsSEXP);
+    Rcpp::traits::input_parameter< const std::vector<double> >::type nuc_freqs(nuc_freqsSEXP);
+    Rcpp::traits::input_parameter< const double >::type p(pSEXP);
+    __result = Rcpp::wrap(get_thresholds(mats, nuc_freqs, p));
+    return __result;
+END_RCPP
+}
 // get_motif_ix
 arma::sp_mat get_motif_ix(List mats, const std::vector<std::string> x, const std::vector<double> nuc_freqs, const double p, const size_t w);
 RcppExport SEXP MOODSR_get_motif_ix(SEXP matsSEXP, SEXP xSEXP, SEXP nuc_freqsSEXP, SEXP pSEXP, SEXP wSEXP) {
