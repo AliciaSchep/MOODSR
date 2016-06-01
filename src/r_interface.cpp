@@ -1,7 +1,6 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
 #include "moods.h"
-#include "moods_scan.h"
 #include "moods_misc.h"
 #include "moods_tools.h"
 #include "match_types.h"
@@ -10,14 +9,29 @@
 
 using namespace Rcpp;
 
-
-score_matrix mat_conversion(List& mats, size_t i){
+std::vector<std::vector<double> > mat_conversion(List& mats, size_t i){
   arma::mat tmp = as<arma::mat>(mats[i]);
   score_matrix out(tmp.n_rows);
     for (size_t i = 0; i < tmp.n_rows; ++i) {
         out[i] = arma::conv_to< std::vector<double> >::from(tmp.row(i));
     };
   return out;
+}
+
+// [[Rcpp::export]]
+std::vector<double>  get_thresholds(List mats,
+          const std::vector<double> nuc_freqs,
+          const double p){
+  size_t n = mats.size();
+  std::vector<double> thresholds(2 * n);
+  std::vector<score_matrix> matrices(2 * n);
+  for(size_t i = 0; i < n; i++) {
+    matrices[i] = mat_conversion(mats, i);
+    matrices[n+i] = MOODS::tools::reverse_complement(matrices[i]);
+    thresholds[i] = MOODS::tools::threshold_from_p(matrices[i], nuc_freqs, p);
+    thresholds[n + i] = thresholds[i];
+  }
+  return thresholds;
 }
 
 // [[Rcpp::export]]
